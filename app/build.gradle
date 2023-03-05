@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.10-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	id 'maven-publish'
+	// id 'maven-publish'
 	id 'jacoco'
 	id 'org.sonarqube' version '3.5.0.2730'
 }
@@ -26,13 +26,13 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-publishing {
-   publications {
-       maven(MavenPublication) {
-           from(components.java)
-       }
-   }
-}
+// publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            from(components.java)
+//        }
+//    }
+// }
 
 tasks.withType(JavaCompile) {
    options.encoding = 'UTF-8'
