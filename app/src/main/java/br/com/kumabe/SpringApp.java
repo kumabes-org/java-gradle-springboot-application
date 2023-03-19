@@ -1,13 +1,11 @@
-package br.com.kumabe.javagradlespringbootapplication;
+package br.com.kumabe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JavaGradleSpringbootApplication {
-
+public class SpringApp {
 	public static void main(String[] args) {
-		SpringApplication.run(JavaGradleSpringbootApplication.class, args);
+		SpringApplication.run(SpringApp.class, args);
 	}
-
 }
