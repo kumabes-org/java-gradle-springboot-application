@@ -3,7 +3,21 @@ name: "Default Workflow"
 on: push
 
 jobs:
+  hadolint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: "./app"
+    steps:
+      - uses: actions/checkout@v3  
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
   call-workflow-ci-java-gradle:
+    needs:
+      - hadolint
     uses: kumabes-org/reusable-workflows-ci-java-gradle/.github/workflows/ci.yml@main
     with:
       runs-on: "ubuntu-latest"
