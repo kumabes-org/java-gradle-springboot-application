@@ -1,8 +1,6 @@
 name: "Default Workflow"
 
-permissions:
-  id-token: write
-  contents: read
+permissions: {}
 
 on: push
 
