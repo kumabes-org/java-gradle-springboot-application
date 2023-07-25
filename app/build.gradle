@@ -40,18 +40,19 @@ sonarqube {
 }
 
 test {
-   finalizedBy jacocoTestReport
+  useJUnitPlatform()
+  finalizedBy jacocoTestReport
 }
 
 jacocoTestReport {
   dependsOn test // tests are required to run before generating the report
   reports {
-	  xml.required = true
-    csv.required = true
-    html.required = true
+        xml.enabled true
+        csv.enabled true
    }
 }
 
 jacoco {
-   toolVersion = "0.8.9"
+    toolVersion = "0.8.9"
+    reportsDir = file("$buildDir/reports/jacoco")
 }      
