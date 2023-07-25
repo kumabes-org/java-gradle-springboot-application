@@ -4,8 +4,6 @@ on: push
 
 jobs:
   call-workflow-ci-java-gradle:
-    needs:
-      - build-and-deploy
     uses: kumabes-org/reusable-workflows-ci-java-gradle/.github/workflows/ci.yml@main
     with:
       runs-on: "ubuntu-latest"
