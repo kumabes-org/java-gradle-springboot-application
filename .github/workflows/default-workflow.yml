@@ -1,65 +1,44 @@
 name: "Default Workflow"
 
-permissions: 
-  id-token: write
-  contents: read
-
 on: push
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    environment: Production
-    steps:
-      - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
-          enable-AzPSSession: true
-      - name: "teste conexão"
-        run: |
-          az resource list
-          az account show
-          az group list
+  call-workflow-ci-java-gradle:
+    needs:
+      - build-and-deploy
+    uses: kumabes-org/reusable-workflows-ci-java-gradle/.github/workflows/ci.yml@main
+    with:
+      runs-on: "ubuntu-latest"
+      environment: "production"
+      working-directory: "app"
+      shell: "bash"
+      project-name: "java-gradle-springboot-application"
+      java-distribution: "zulu"
+      java-version: "11"
+      gradle-version: "7.6.1"
+    secrets: inherit
 
-  # call-workflow-ci-java-gradle:
-  #   needs:
-  #     - build-and-deploy
-  #   uses: kumabes-org/reusable-workflows-ci-java-gradle/.github/workflows/ci.yml@main
-  #   with:
-  #     runs-on: "ubuntu-latest"
-  #     environment: "production"
-  #     working-directory: "app"
-  #     shell: "bash"
-  #     project-name: "java-gradle-springboot-application"
-  #     java-distribution: "zulu"
-  #     java-version: "11"
-  #     gradle-version: "7.6.1"
-  #   secrets: inherit
+  call-workflow-sonarqube:
+    needs:
+      - call-workflow-ci-java-gradle
+    uses: kumabes-org/reusable-workflows-sonarqube/.github/workflows/main.yml@main
+    with:
+      runs-on: "ubuntu-latest"
+      environment: "production"
+      working-directory: "app"
+      shell: "bash"    
+      project-name: "java-gradle-springboot-application"
+    secrets: inherit
 
-  # call-workflow-sonarqube:
-  #   needs:
-  #     - call-workflow-ci-java-gradle
-  #   uses: kumabes-org/reusable-workflows-sonarqube/.github/workflows/main.yml@main
-  #   with:
-  #     runs-on: "ubuntu-latest"
-  #     environment: "production"
-  #     working-directory: "app"
-  #     shell: "bash"    
-  #     project-name: "java-gradle-springboot-application"
-  #   secrets: inherit
-
-  # call-workflow-codeql:
-  #   needs:
-  #     - call-workflow-ci-java-gradle
-  #   uses: kumabes-org/reusable-workflows-codeql/.github/workflows/main.yml@main
-  #   with:
-  #     runs-on: "ubuntu-latest"
-  #     environment: "production"
-  #     working-directory: "app"
-  #     shell: "bash"    
-  #     project-name: "java-gradle-springboot-application"
-  #     languages: "java"
-  #   secrets: inherit
+  call-workflow-codeql:
+    needs:
+      - call-workflow-ci-java-gradle
+    uses: kumabes-org/reusable-workflows-codeql/.github/workflows/main.yml@main
+    with:
+      runs-on: "ubuntu-latest"
+      environment: "production"
+      working-directory: "app"
+      shell: "bash"    
+      project-name: "java-gradle-springboot-application"
+      languages: "java"
+    secrets: inherit
