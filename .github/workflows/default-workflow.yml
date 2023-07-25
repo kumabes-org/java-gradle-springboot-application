@@ -12,10 +12,8 @@ jobs:
       shell: "bash"
       project-name: "java-gradle-springboot-application"
       java-distribution: "zulu"
-      # java-version: "11"
-      # gradle-version: "7.6.1"
-      java-version: "17"
-      gradle-version: "8.2.1"
+      java-version: "11"
+      gradle-version: "7.6.1"
     secrets: inherit
 
   call-workflow-sonarqube:

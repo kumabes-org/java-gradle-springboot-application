@@ -1,23 +1,15 @@
 plugins {
 	id 'java'
-    id 'maven-publish'
-	// Java 11
-	//id 'org.springframework.boot' version '2.7.10-SNAPSHOT'
-	//id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	//id 'org.sonarqube' version '4.3.0.3225'
-
-	// Java 17
-	id 'org.springframework.boot' version '3.2.0-SNAPSHOT'
-	id 'io.spring.dependency-management' version '1.1.2'	
+  id 'maven-publish'
+	id 'org.springframework.boot' version '2.7.10-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'	
 	id 'org.sonarqube' version '4.3.0.3225'
-
 	id 'jacoco'	
 }
 
 group = 'br.com.kumabe'
 version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = '11'
-sourceCompatibility = '17'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -48,26 +40,17 @@ sonarqube {
 }
 
 test {
-//    useJUnitPlatform()
    finalizedBy jacocoTestReport
 }
 
 jacocoTestReport {
-   dependsOn test // tests are required to run before generating the report
-   reports {
-	// java 11
-    //    xml.enabled true
-    //    csv.enabled true
-
-	// java 17
-        xml.required = false
-        csv.required = false
+  dependsOn test // tests are required to run before generating the report
+  reports {
+	  xml.required = false
+    csv.required = false
    }
 }
 
 jacoco {
-	// java 11
-   //toolVersion = "0.8.5"
-   // java 17
    toolVersion = "0.8.9"
 }      
