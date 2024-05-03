@@ -12,7 +12,7 @@ jobs:
       shell: "bash"
       project-name: "java-gradle-springboot-application"
       java-distribution: "zulu"
-      java-version: "11"
+      java-version: "17"
       gradle-version: "7.6.1"
     secrets: inherit
 
@@ -24,7 +24,7 @@ jobs:
       runs-on: "ubuntu-latest"
       environment: "production"
       working-directory: "app"
-      shell: "bash"    
+      shell: "bash"
       project-name: "java-gradle-springboot-application"
     secrets: inherit
 
@@ -36,7 +36,7 @@ jobs:
       runs-on: "ubuntu-latest"
       environment: "production"
       working-directory: "app"
-      shell: "bash"    
+      shell: "bash"
       project-name: "java-gradle-springboot-application"
       languages: "java"
     secrets: inherit
