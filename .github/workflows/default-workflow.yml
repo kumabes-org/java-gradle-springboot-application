@@ -26,6 +26,8 @@ jobs:
       working-directory: "app"
       shell: "bash"
       project-name: "java-gradle-springboot-application"
+      language: "java"
+      build: "gradle"
     secrets: inherit
 
   call-workflow-codeql:
